@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 func main() {
 	investmentAmount := 1000.00
@@ -8,5 +11,5 @@ func main() {
 	years := 10.0
 
 	futureValue := investmentAmount * math.Pow((1+expectedReturnRate/100), years)
-	println(futureValue)
+	fmt.Println(futureValue)
 }
