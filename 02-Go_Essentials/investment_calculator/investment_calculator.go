@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	investmentAmount := 1000.00
+	var investmentAmount float64 = 1000
 	expectedReturnRate := 5.5
 	years := 10.0
 
