@@ -26,14 +26,18 @@ func main() {
 		var depositAmount float64
 		fmt.Print("Enter the deposit amount: ")
 		fmt.Scan(&depositAmount)
+		if depositAmount <= 0 {
+			fmt.Println("Invalid deposit amount!")
+			return
+		}
 		accountBalance += depositAmount
 		fmt.Println("Your updated balance is: ", accountBalance)
 	case 3:
 		var withdrawalAmount float64
 		fmt.Print("Enter the withdrawal amount: ")
 		fmt.Scan(&withdrawalAmount)
-		if withdrawalAmount > accountBalance {
-			fmt.Println("Insufficient funds!")
+		if withdrawalAmount <= 0 || withdrawalAmount > accountBalance {
+			fmt.Println("withdrawal must be >= 0 or Insufficient funds!")
 		} else {
 			accountBalance -= withdrawalAmount
 			fmt.Println("Your updated balance is: ", accountBalance)
