@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 func main() {
@@ -10,7 +9,6 @@ func main() {
 
 	fmt.Println("Welcome to Go Bank!")
 
-loopLabel:
 	for {
 		fmt.Println("What do you want to do?")
 		fmt.Println("1. Check your balance")
@@ -44,18 +42,17 @@ loopLabel:
 
 			if withdrawalAmount <= 0 || withdrawalAmount > accountBalance {
 				fmt.Println("withdrawal must be >= 0 or Insufficient funds!")
+				continue
 			} else {
 				accountBalance -= withdrawalAmount
 				fmt.Println("Your updated balance is: ", accountBalance)
 			}
 
-		case 4:
-			fmt.Println("Goodbye!")
-			os.Exit(0)
-
 		default:
-			fmt.Println("Invalid choice!")
-			break loopLabel
+			fmt.Println("Goodbye!")
+			fmt.Println("Thaks for choosing Go Bank!")
+			// break loopLabel
+			return
 
 		}
 	}
