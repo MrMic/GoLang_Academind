@@ -10,31 +10,31 @@ import (
 var accountBalanceFile = "balance.txt"
 
 // ______________________________________________________________________
-func getBalanceFromFile() (float64, error) {
+func getFloatFromFile(fileName string) (float64, error) {
 	fmt.Println("Reading balance from file...")
-	data, err := os.ReadFile(accountBalanceFile)
+	data, err := os.ReadFile(fileName)
 	if err != nil {
-		return 1000, errors.New("error reading balance file")
+		return 1000, errors.New("failed to find file")
 	}
 
-	balance, err := strconv.ParseFloat(string(data), 64)
+	value, err := strconv.ParseFloat(string(data), 64)
 	if err != nil {
-		return 0, errors.New("failed to parse balance stored balance")
+		return 0, errors.New("failed to parse stored value")
 	}
 
-	return balance, nil
+	return value, nil
 }
 
 // ______________________________________________________________________
-func writeBalanceToFile(balance float64) {
-	fmt.Println("Writing balance to file:", balance)
-	balanceText := fmt.Sprintf("%.2f", balance)
-	os.WriteFile(accountBalanceFile, []byte(balanceText), 0o644)
+func writeFloatToFile(value float64, fileName string) {
+	fmt.Println("Writing balance to file:", value)
+	balanceText := fmt.Sprintf("%.2f", value)
+	os.WriteFile(fileName, []byte(balanceText), 0o644)
 }
 
 // * INFO:  ════════════════════════════ MAIN ═════════════════════════
 func main() {
-	accountBalance, err := getBalanceFromFile() // accountBalance := getBalanceFromFile()
+	accountBalance, err := getFloatFromFile(accountBalanceFile) // accountBalance := getBalanceFromFile()
 	if err != nil {
 		fmt.Println("ERROR: ", err)
 		fmt.Println("------------------")
@@ -65,7 +65,7 @@ func main() {
 
 			accountBalance += depositAmount
 			fmt.Println("Your updated balance is: ", accountBalance)
-			writeBalanceToFile(accountBalance)
+			writeFloatToFile(accountBalance, accountBalanceFile)
 		case 3:
 			var withdrawalAmount float64
 			fmt.Print("Enter the withdrawal amount: ")
@@ -77,7 +77,7 @@ func main() {
 			} else {
 				accountBalance -= withdrawalAmount
 				fmt.Println("Your updated balance is: ", accountBalance)
-				writeBalanceToFile(accountBalance)
+				writeFloatToFile(accountBalance, accountBalanceFile)
 			}
 
 		default:
