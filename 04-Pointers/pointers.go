@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	age := 32 // Just a regular variable
+	agePointer := &age
 
 	fmt.Println("Age: ", age)
 
