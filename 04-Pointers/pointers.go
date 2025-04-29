@@ -7,6 +7,8 @@ func main() {
 	agePointer := &age
 
 	fmt.Println("Age: ", age)
+	fmt.Println("Age Pointer: ", agePointer)
+	fmt.Println("Value of Age Pointer: ", *agePointer)
 
 	adultYears := getAdultYears(age)
 	fmt.Println(adultYears)
