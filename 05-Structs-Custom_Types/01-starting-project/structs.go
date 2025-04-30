@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type User struct {
+type user struct {
 	firstName string
 	lastName  string
 	birthdate string
@@ -13,13 +13,18 @@ type User struct {
 }
 
 func main() {
-	firstName := getUserData("Please enter your first name: ")
-	lastName := getUserData("Please enter your last name: ")
-	birthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
+	userFirstName := getUserData("Please enter your first name: ")
+	userLastName := getUserData("Please enter your last name: ")
+	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	// ... do something awesome with that gathered data!
+	appUser := user{
+		firstName: userFirstName,
+		lastName:  userLastName,
+		birthdate: userBirthdate,
+		createdAt: time.Now(),
+	}
 
-	outputUserDetals(firstName, lastName, birthdate)
+	outputUserDetals(appUser.firstName, appUser.lastName, appUser.birthdate)
 }
 
 // ______________________________________________________________________
