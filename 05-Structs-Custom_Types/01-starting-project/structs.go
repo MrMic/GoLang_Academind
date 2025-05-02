@@ -35,9 +35,14 @@ type user struct {
 //	    createdAt: "2023-01-01",
 //	}
 //	user.outputUserDetails() // Prints: John Doe 1990-01-01 2023-01-01
-func (u user) outputUserDetails() {
+func (u *user) outputUserDetails() {
 	// fmt.Printf("First name: %s\nLast name: %s\nBirthdate: %s\nCreated at: %s\n", u.firstName, u.lastName, u.birthdate, u.createdAt)
 	fmt.Println(u.firstName, u.lastName, u.birthdate, u.createdAt)
+}
+
+func (u *user) clearUserName() {
+	u.firstName = ""
+	u.lastName = ""
 }
 
 // * INFO: ══ MAIN ════════════════════════════════════════════════════════════
@@ -53,6 +58,8 @@ func main() {
 		createdAt: time.Now(),
 	}
 
+	appUser.outputUserDetails()
+	appUser.clearUserName()
 	appUser.outputUserDetails()
 }
 
