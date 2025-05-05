@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -13,6 +14,7 @@ type user struct {
 	createdAt time.Time
 }
 
+// ______________________________________________________________________
 // outputUserDetails outputs the details of a user to the console.
 //
 // This method prints the user's first name, last name, birthdate, and the account creation date
@@ -40,18 +42,24 @@ func (u *user) outputUserDetails() {
 	fmt.Println(u.firstName, u.lastName, u.birthdate, u.createdAt)
 }
 
+// ______________________________________________________________________
 func (u *user) clearUserName() {
 	u.firstName = ""
 	u.lastName = ""
 }
 
-func newUser(firstName, lastName, birthdate string) *user {
+// * INFO: ══ CONSTRUCTOR ═════════════════════════════════════════════════════
+func newUser(firstName, lastName, birthdate string) (*user, error) {
+	if firstName == "" || lastName == "" || birthdate == "" {
+		return nil, errors.New("first name, last name, and birthdate are required")
+	}
+
 	return &user{
 		firstName: firstName,
 		lastName:  lastName,
 		birthdate: birthdate,
 		createdAt: time.Now(),
-	}
+	}, nil
 }
 
 // * INFO: ══ MAIN ════════════════════════════════════════════════════════════
@@ -60,7 +68,11 @@ func main() {
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	appUser := newUser(userFirstName, userLastName, userBirthdate)
+	appUser, err := newUser(userFirstName, userLastName, userBirthdate)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	appUser.outputUserDetails()
 	appUser.clearUserName()
@@ -71,6 +83,6 @@ func main() {
 func getUserData(promptText string) string {
 	fmt.Print(promptText)
 	var value string
-	fmt.Scan(&value)
+	fmt.Scanln(&value)
 	return value
 }
