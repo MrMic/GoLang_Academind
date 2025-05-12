@@ -15,7 +15,7 @@ func main() {
 		return
 	}
 
-	fmt.Println(userNote)
+	userNote.Display()
 }
 
 // ______________________________________________________________________
@@ -29,7 +29,7 @@ func getNoteData() (string, string) {
 
 // ______________________________________________________________________
 func getUserInput(prompt string) string {
-	fmt.Println(prompt)
+	fmt.Print(prompt)
 
 	var input string
 	fmt.Scanln(&input)
