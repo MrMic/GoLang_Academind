@@ -27,7 +27,7 @@ func New(title, content string) (Note, error) {
 
 // ______________________________________________________________________
 func (note Note) Display() string {
-	fmt.Printf("Title: %v\n", note.title)
+	fmt.Printf("\nTitle: %v\n", note.title)
 	fmt.Printf("Content: %v\n", note.content)
 	fmt.Printf("Created At: %s\n", note.createdAt)
 	return ""
