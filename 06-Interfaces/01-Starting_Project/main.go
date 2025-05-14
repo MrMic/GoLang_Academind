@@ -22,7 +22,7 @@ func main() {
 
 	err = userNote.Save()
 	if err != nil {
-		fmt.Println("Saving the note failed.")
+		fmt.Println("Saving the todo failed.")
 		return
 	}
 
