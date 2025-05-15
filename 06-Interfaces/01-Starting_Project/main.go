@@ -10,6 +10,12 @@ import (
 	"michaelchlon.fr/note/todo"
 )
 
+// ______________________________________________________________________
+type saver interface {
+	Save() error
+}
+
+// * INFO: ══ MAIN ════════════════════════════════════════════════════════════
 func main() {
 	title, content := getNoteData()
 	todoText := getUserInput("Todo text: ")
