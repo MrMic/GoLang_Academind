@@ -47,6 +47,12 @@ func main() {
 }
 
 // ______________________________________________________________________
+// ! WARN: "interface{}" is the same as "any" in JS
+func printSomething(value interface{}) {
+	fmt.Println(value)
+}
+
+// ______________________________________________________________________
 func outputData(data outputtable) error {
 	data.Display()
 	return saveData(data)
