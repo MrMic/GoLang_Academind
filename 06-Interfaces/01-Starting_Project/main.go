@@ -49,14 +49,20 @@ func main() {
 // ______________________________________________________________________
 // ! WARN: "interface{}" is the same as "any" in JS
 func printSomething(value interface{}) {
-	switch value.(type) {
-	case string:
-		fmt.Println("This is a string: ", value)
-	case int:
-		fmt.Println("This is an int: ", value)
-	default:
-		fmt.Println("Unknown type")
+	intVal, ok := value.(int)
+	if ok {
+		fmt.Println("Integer: ", intVal+1)
+		return
 	}
+
+	// switch value.(type) {
+	// case string:
+	// 	fmt.Println("This is a string: ", value)
+	// case int:
+	// 	fmt.Println("This is an int: ", value)
+	// default:
+	// 	fmt.Println("Unknown type")
+	// }
 	// fmt.Println(value)
 }
 
