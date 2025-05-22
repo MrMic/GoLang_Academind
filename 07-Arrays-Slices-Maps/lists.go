@@ -13,9 +13,19 @@ func main() {
 
 	fmt.Println("🪚 prices:", prices[2])
 
-	// featuredPrices := prices[1:3]
+	// * INFO: SLICE => featuredPrices := prices[1:3]
 	featuredPrices := prices[1:]
 	highlightedPrices := featuredPrices[:1]
 	fmt.Println("🪚 featuredPrices:", featuredPrices)
 	fmt.Println("🪚 highlightedPrices:", highlightedPrices)
+
+	featuredPrices[0] = 199.99
+	fmt.Println("🪚 prices:", prices)
+
+	fmt.Println("len: ", len(featuredPrices), "capacity: ", cap(featuredPrices))
+	fmt.Println("len: ", len(highlightedPrices), "capacity: ", cap(highlightedPrices))
+
+	highlightedPrices = highlightedPrices[:3]
+	fmt.Println("🪚 highlightedPrices:", highlightedPrices)
+	fmt.Println("len: ", len(highlightedPrices), "capacity: ", cap(highlightedPrices))
 }
