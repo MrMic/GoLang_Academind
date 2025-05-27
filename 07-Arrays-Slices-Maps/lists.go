@@ -8,6 +8,10 @@ func main() {
 
 	updatedPrices := append(prices, 45.99)
 	fmt.Println("🪚 Updated prices:", updatedPrices, "and original prices:", prices)
+
+	discountedPrices := []float64{100.99, 18.99, 25.99}
+	prices = append(prices, discountedPrices...)
+	fmt.Println("🪚 prices:", prices)
 }
 
 // ╾────────────────────────────────────────────────────────────────────╼
