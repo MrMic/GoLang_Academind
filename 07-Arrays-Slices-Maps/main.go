@@ -15,4 +15,10 @@ func main() {
 	userNames = append(userNames, "John")
 	userNames = append(userNames, "Jane")
 	fmt.Println("🪚 userNames:", userNames)
+
+	coursesRatings := make(map[string]float64, 3)
+	coursesRatings["Go"] = 4.9
+	coursesRatings["Python"] = 4.8
+	coursesRatings["JavaScript"] = 4.7
+	fmt.Println("🪚 coursesRatings:", coursesRatings)
 }
