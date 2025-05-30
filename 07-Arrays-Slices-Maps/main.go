@@ -2,6 +2,14 @@ package main
 
 import "fmt"
 
+// ______________________________________________________________________
+type floatMap map[string]float64
+
+func (m floatMap) output() {
+	fmt.Println("🪚 MAP:", m)
+}
+
+// * NOTE: ╾╼ MAIN ╾──────────────────────────────────────────────────────────╼
 func main() {
 	// ! WARN: Slice & nothing is pre-allocated
 	// ! WARN: like with `make()`
@@ -16,9 +24,11 @@ func main() {
 	userNames = append(userNames, "Jane")
 	fmt.Println("🪚 userNames:", userNames)
 
-	coursesRatings := make(map[string]float64, 3)
+	coursesRatings := make(floatMap, 3)
 	coursesRatings["Go"] = 4.9
 	coursesRatings["Python"] = 4.8
 	coursesRatings["JavaScript"] = 4.7
-	fmt.Println("🪚 coursesRatings:", coursesRatings)
+
+	// fmt.Println("🪚 coursesRatings:", coursesRatings)
+	coursesRatings.output()
 }
