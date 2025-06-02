@@ -31,4 +31,18 @@ func main() {
 
 	// fmt.Println("🪚 coursesRatings:", coursesRatings)
 	coursesRatings.output()
+
+	println("-------------------------------")
+
+	// * INFO: for Arrays
+	for index, value := range userNames {
+		fmt.Println("🪚 index:", index, " => ", "value:", value)
+	}
+
+	println("-------------------------------")
+
+	// * INFO: for Maps
+	for key, value := range coursesRatings {
+		fmt.Println("🪚 key:", key, " => ", "value:", value)
+	}
 }
