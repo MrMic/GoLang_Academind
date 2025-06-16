@@ -16,4 +16,5 @@ func main() {
 		result[taxRate] = taxIncludedPrices
 	}
 	fmt.Println("Prices with tax included:", result)
+
 }
