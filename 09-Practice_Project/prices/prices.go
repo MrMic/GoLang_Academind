@@ -1,11 +1,10 @@
 package prices
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 
 	"michaelchlon.fr/price-calculator/conversion"
+	"michaelchlon.fr/price-calculator/filemanager"
 )
 
 type TaxIncludedPriceJob struct {
@@ -16,34 +15,20 @@ type TaxIncludedPriceJob struct {
 
 // LoadData - * INFO: METHOD ----------------------------------------------------
 func (job *TaxIncludedPriceJob) LoadData() {
-	file, err := os.Open("prices.txt")
-	if err != nil { // Handle error
-		fmt.Println("Error opening file:", err)
-		return
-	}
-
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	if err := scanner.Err(); err != nil { // Handle error
-		// * INFO: Handle error
-		fmt.Println("Error reading text file:", err)
-		file.Close() // Close the file before returning
-		return
+	lines, err := filemanager.ReadLines("prices.txt")
+	if err != nil {
+		fmt.Println("Error reading lines from file:", "Error:", err)
+		return // Exit if there's an error reading the file
+		// This will prevent further processing if the file cannot be read
 	}
 
 	prices, err := conversion.StringsToFloats(lines)
-
 	if err != nil {
 		fmt.Println("Error parsing float from line:", "Error:", err)
-		file.Close() // Close the file before returning
-		return       // Exit if there's an error parsing a line
+		return // Exit if there's an error parsing a line
 	}
 
 	job.InputPrices = prices
-	defer file.Close()
 }
 
 // Process - * INFO: Processes the input prices by applying the tax rate and storing the results.
