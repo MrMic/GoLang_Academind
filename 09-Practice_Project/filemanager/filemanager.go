@@ -7,10 +7,15 @@ import (
 	"os"
 )
 
+type FileManager struct {
+	InputFilePath  string
+	OutputFilePath string
+}
+
 // -----------------------------------------------------------------
 // FileManager - * INFO: Struct to manage file operations
-func ReadLines(path string) ([]string, error) {
-	file, err := os.Open(path)
+func (fm FileManager) ReadLines() ([]string, error) {
+	file, err := os.Open(fm.InputFilePath)
 	if err != nil {
 		return nil, errors.New("failed to open file")
 	}
@@ -23,7 +28,8 @@ func ReadLines(path string) ([]string, error) {
 		lines = append(lines, scanner.Text())
 	}
 
-	if err := scanner.Err(); err != nil { // Handle error
+	err = scanner.Err() // Check for errors during scanning
+	if err != nil {     // Handle error
 		file.Close() // Ensure the file is closed after reading
 		return nil, errors.New("failed to read lines in file.")
 	}
@@ -33,8 +39,8 @@ func ReadLines(path string) ([]string, error) {
 }
 
 // -----------------------------------------------------------------
-func WriteJSON(path string, data any) error {
-	file, err := os.Create(path)
+func (fm FileManager) WriteResult(data any) error {
+	file, err := os.Create(fm.OutputFilePath)
 	if err != nil {
 		errors.New("failed to create file")
 	}
@@ -48,4 +54,12 @@ func WriteJSON(path string, data any) error {
 
 	defer file.Close() // Ensure the file is closed after writing
 	return nil
+}
+
+// * INFO: CONSTRUCTOR -----------------------------------------------------------------
+func New(inputPath, outputPath string) FileManager {
+	return FileManager{
+		InputFilePath:  inputPath,
+		OutputFilePath: outputPath,
+	}
 }
