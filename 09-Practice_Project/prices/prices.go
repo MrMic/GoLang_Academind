@@ -8,6 +8,7 @@ import (
 )
 
 type TaxIncludedPriceJob struct {
+	IOManager         filemanager.FileManager // File manager for reading and writing files
 	TaxRate           float64
 	InputPrices       []float64
 	TaxIncludedPrices map[string]string
@@ -15,16 +16,15 @@ type TaxIncludedPriceJob struct {
 
 // LoadData - * INFO: METHOD ----------------------------------------------------
 func (job *TaxIncludedPriceJob) LoadData() {
-	lines, err := filemanager.ReadLines("prices.txt")
+	lines, err := job.IOManager.ReadLines()
 	if err != nil {
-		fmt.Println("Error reading lines from file:", "Error:", err)
+		fmt.Println(err)
 		return // Exit if there's an error reading the file
-		// This will prevent further processing if the file cannot be read
 	}
 
 	prices, err := conversion.StringsToFloats(lines)
 	if err != nil {
-		fmt.Println("Error parsing float from line:", "Error:", err)
+		fmt.Println(err)
 		return // Exit if there's an error parsing a line
 	}
 
@@ -44,12 +44,13 @@ func (job *TaxIncludedPriceJob) Process() {
 
 	job.TaxIncludedPrices = result // Store the results in the job's map
 
-	filemanager.WriteJSON(fmt.Sprintf("result_%.0f.json", job.TaxRate*100), job.TaxIncludedPrices)
+	job.IOManager.WriteResult(job)
 }
 
 // NewTaxIncludedPriceJob - * INFO: Constructs a new TaxIncludedPriceJob with the given tax rate and input prices.
-func NewTaxIncludedPriceJob(taxRate float64) *TaxIncludedPriceJob {
+func NewTaxIncludedPriceJob(fm filemanager.FileManager, taxRate float64) *TaxIncludedPriceJob {
 	return &TaxIncludedPriceJob{
+		IOManager:   fm,
 		InputPrices: []float64{10, 20, 30},
 		TaxRate:     taxRate,
 	}
