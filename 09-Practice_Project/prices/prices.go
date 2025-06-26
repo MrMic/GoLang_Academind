@@ -8,10 +8,10 @@ import (
 )
 
 type TaxIncludedPriceJob struct {
-	IOManager         filemanager.FileManager // File manager for reading and writing files
-	TaxRate           float64
-	InputPrices       []float64
-	TaxIncludedPrices map[string]string
+	IOManager         filemanager.FileManager `json:"-"`
+	TaxRate           float64                 `json:"tax_rate"`            // Tax rate to apply to the input prices
+	InputPrices       []float64               `json:"input_prices"`        // Input prices to which the tax rate will be applied
+	TaxIncludedPrices map[string]string       `json:"tax_included_prices"` // Map to store the input prices and their corresponding tax-included prices
 }
 
 // LoadData - * INFO: METHOD ----------------------------------------------------
