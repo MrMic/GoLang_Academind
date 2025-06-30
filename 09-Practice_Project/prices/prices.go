@@ -4,14 +4,14 @@ import (
 	"fmt"
 
 	"michaelchlon.fr/price-calculator/conversion"
-	"michaelchlon.fr/price-calculator/filemanager"
+	"michaelchlon.fr/price-calculator/iomanager"
 )
 
 type TaxIncludedPriceJob struct {
-	IOManager         filemanager.FileManager `json:"-"`
-	TaxRate           float64                 `json:"tax_rate"`            // Tax rate to apply to the input prices
-	InputPrices       []float64               `json:"input_prices"`        // Input prices to which the tax rate will be applied
-	TaxIncludedPrices map[string]string       `json:"tax_included_prices"` // Map to store the input prices and their corresponding tax-included prices
+	IOManager         iomanager.IOMAnager `json:"-"`
+	TaxRate           float64             `json:"tax_rate"`            // Tax rate to apply to the input prices
+	InputPrices       []float64           `json:"input_prices"`        // Input prices to which the tax rate will be applied
+	TaxIncludedPrices map[string]string   `json:"tax_included_prices"` // Map to store the input prices and their corresponding tax-included prices
 }
 
 // LoadData - * INFO: METHOD ----------------------------------------------------
@@ -48,9 +48,9 @@ func (job *TaxIncludedPriceJob) Process() {
 }
 
 // NewTaxIncludedPriceJob - * INFO: Constructs a new TaxIncludedPriceJob with the given tax rate and input prices.
-func NewTaxIncludedPriceJob(fm filemanager.FileManager, taxRate float64) *TaxIncludedPriceJob {
+func NewTaxIncludedPriceJob(iom iomanager.IOMAnager, taxRate float64) *TaxIncludedPriceJob {
 	return &TaxIncludedPriceJob{
-		IOManager:   fm,
+		IOManager:   iom,
 		InputPrices: []float64{10, 20, 30},
 		TaxRate:     taxRate,
 	}
