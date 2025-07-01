@@ -15,25 +15,27 @@ type TaxIncludedPriceJob struct {
 }
 
 // LoadData - * INFO: METHOD ----------------------------------------------------
-func (job *TaxIncludedPriceJob) LoadData() {
+func (job *TaxIncludedPriceJob) LoadData() error {
 	lines, err := job.IOManager.ReadLines()
 	if err != nil {
-		fmt.Println(err)
-		return // Exit if there's an error reading the file
+		return err // Return the error if reading lines fails
 	}
 
 	prices, err := conversion.StringsToFloats(lines)
 	if err != nil {
-		fmt.Println(err)
-		return // Exit if there's an error parsing a line
+		return err // Return the error if conversion fails
 	}
 
 	job.InputPrices = prices
+	return nil // Return nil if everything is successful
 }
 
 // Process - * INFO: Processes the input prices by applying the tax rate and storing the results.
-func (job *TaxIncludedPriceJob) Process() {
-	job.LoadData() // Load data from file
+func (job *TaxIncludedPriceJob) Process() error {
+	err := job.LoadData() // Load data from file
+	if err != nil {
+		return err // Return the error if loading data fails
+	}
 
 	result := make(map[string]string)
 
@@ -44,7 +46,7 @@ func (job *TaxIncludedPriceJob) Process() {
 
 	job.TaxIncludedPrices = result // Store the results in the job's map
 
-	job.IOManager.WriteResult(job)
+	return job.IOManager.WriteResult(job)
 }
 
 // NewTaxIncludedPriceJob - * INFO: Constructs a new TaxIncludedPriceJob with the given tax rate and input prices.
