@@ -31,10 +31,10 @@ func (job *TaxIncludedPriceJob) LoadData() error {
 }
 
 // Process - * INFO: Processes the input prices by applying the tax rate and storing the results.
-func (job *TaxIncludedPriceJob) Process() error {
+func (job *TaxIncludedPriceJob) Process(doneChan chan bool) {
 	err := job.LoadData() // Load data from file
 	if err != nil {
-		return err // Return the error if loading data fails
+		// return err // Return the error if loading data fails
 	}
 
 	result := make(map[string]string)
@@ -46,7 +46,8 @@ func (job *TaxIncludedPriceJob) Process() error {
 
 	job.TaxIncludedPrices = result // Store the results in the job's map
 
-	return job.IOManager.WriteResult(job)
+	job.IOManager.WriteResult(job)
+	doneChan <- true // * NOTE: Signal that the processing is done
 }
 
 // NewTaxIncludedPriceJob - * INFO: Constructs a new TaxIncludedPriceJob with the given tax rate and input prices.
