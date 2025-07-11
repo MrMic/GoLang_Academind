@@ -1,0 +1,16 @@
+
+# -*- RESTCLIENT -*-
+##
+
+##
+POST http://localhost:8082/events
+content-type: application/json
+
+{
+    "name": "Test Event",
+    "description": "A test Evevnt",
+    "location": "Test Location",
+    "dateTime": "2025-01-01T15:30:00.000Z"
+}
+
+##
