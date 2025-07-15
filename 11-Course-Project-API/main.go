@@ -4,10 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"michaelchlon.fr/api/db"
 	"michaelchlon.fr/api/models"
 )
 
 func main() {
+	db.InitDB() // * NOTE: Initialize the database connection and create necessary tables
+
 	server := gin.Default()
 
 	server.GET("/events", getEvents) // * NOTE: Register the handler for the "/events" route
