@@ -59,3 +59,39 @@ func createEvent(context *gin.Context) {
 		"event":   event,
 	}) // * NOTE: Respond with a success message
 }
+
+// * NOTE: Define a handler for the "/events/:id" route (PUT) ------------------------
+func updateEvent(context *gin.Context) {
+	eventId, err := strconv.ParseInt(context.Param("id"), 10, 64) // * NOTE: Get the event ID from the URL parameters
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Invalid event ID!"}) // * NOTE: Respond with an error if the ID is invalid
+		return
+	}
+
+	_, err = models.GetEventByID(eventId) // * NOTE: Retrieve the event by ID from the model
+	// * NOTE: If the event does not exist, respond with an error
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"message": "Could not fetch the Event!"})
+		return
+	}
+
+	var updatedEvent models.Event                                // * NOTE: Create a new event instance for the updated data
+	if err = context.ShouldBindJSON(&updatedEvent); err != nil { // * NOTE: Bind the JSON request body to the updated event instance
+		// * NOTE: If there is an error binding the JSON, respond with an error
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	updatedEvent.ID = eventId // * NOTE: Set the ID of the updated event to the ID from the URL
+	err = updatedEvent.Update()
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not update event!"}) // * NOTE: Respond with an error if the event could not be updated
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{
+		"message": "Event updated successfully!",
+		"event":   updatedEvent,
+	}) // * NOTE: Respond with a success message and the updated event data
+
+}
