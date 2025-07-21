@@ -1,0 +1,11 @@
+## UPDATE EN EVENT
+##
+PUT http://localhost:8082/events/1
+content-type: application/json
+
+{
+    "name": "Updated test event",
+    "description": "A test event",
+    "location": "Test Location ( UPDATED )",
+    "dateTime": "2025-02-01T15:30:00.000Z"
+}

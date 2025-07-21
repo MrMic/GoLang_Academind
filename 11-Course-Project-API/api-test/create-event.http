@@ -14,3 +14,12 @@ content-type: application/json
 }
 
 ##
+POST http://localhost:8082/events
+content-type: application/json
+
+{
+    "name": "Test Event 2",
+    "description": "Another test Evevnt",
+    "location": "Test Location",
+    "dateTime": "2025-01-01T15:30:00.000Z"
+}
