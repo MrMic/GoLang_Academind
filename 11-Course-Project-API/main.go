@@ -1,8 +1,12 @@
 package main
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"michaelchlon.fr/api/db"
+	"michaelchlon.fr/api/models"
 	"michaelchlon.fr/api/routes"
 )
 
