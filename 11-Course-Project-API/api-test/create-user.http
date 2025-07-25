@@ -1,0 +1,11 @@
+# -*- RESTCLIENT -*-
+##
+
+##
+POST http://localhost:8082/signup
+content-type: application/json
+
+{
+    "email": "test2@example.com",
+    "password": "test"
+}
