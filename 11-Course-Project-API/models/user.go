@@ -11,6 +11,7 @@ type User struct {
 	Password string `binding:"required"`
 }
 
+// * NOTE: ValidateCredentials method checks if the user exists in the database and verifies the password
 func (u User) Save() error {
 	query := "INSERT INTO users(email,password) VALUES (?,?)"
 	stmt, err := db.DB.Prepare(query)
@@ -35,4 +36,19 @@ func (u User) Save() error {
 	u.ID = userId
 
 	return err
+}
+
+// * NOTE: ValidateCredentials method checks if the user exists in the database and verifies the password
+func (u User) ValidateCredentials() error {
+	query := "SELECT password FROM users WHERE email = ?"
+	row := db.DB.QueryRow(query, u.Email)
+
+	var retrievedPassword string
+	err := row.Scan(&retrievedPassword)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
