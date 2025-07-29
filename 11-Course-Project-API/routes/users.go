@@ -23,7 +23,8 @@ func signup(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusCreated, gin.H{
-		"message": "User created successfully!", "user": user}) // * NOTE: Respond with a success message
+		"message": "User created successfully!", "user": user,
+	}) // * NOTE: Respond with a success message
 }
 
 // * NOTE: login function handles user login
@@ -37,10 +38,12 @@ func login(context *gin.Context) {
 	}
 
 	// * NOTE: ValidateCredentials the user using the ValidateCredentials method defined in the model
-	if authenticatedUser, err := user.ValidateCredentials(); err != nil {
-		context.JSON(http.StatusUnauthorized, gin.H{"message": "Invalid credentials!"})
+	if err := user.ValidateCredentials(); err != nil {
+		context.JSON(http.StatusUnauthorized, gin.H{"message": err.Error()})
+		return
 	} else {
 		context.JSON(http.StatusOK, gin.H{
-			"message": "Login successful!", "user": authenticatedUser}) // * NOTE: Respond with a success message and user data
+			"message": "Login successful!",
+		})
 	}
 }

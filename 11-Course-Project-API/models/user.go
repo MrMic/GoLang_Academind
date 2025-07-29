@@ -1,6 +1,8 @@
 package models
 
 import (
+	"errors"
+
 	"michaelchlon.fr/api/db"
 	"michaelchlon.fr/api/utils"
 )
@@ -27,7 +29,6 @@ func (u User) Save() error {
 	}
 
 	result, err := stmt.Exec(u.Email, hashedPassword)
-
 	if err != nil {
 		return err
 	}
@@ -45,9 +46,14 @@ func (u User) ValidateCredentials() error {
 
 	var retrievedPassword string
 	err := row.Scan(&retrievedPassword)
-
 	if err != nil {
-		return err
+		return errors.New("credentials invalid")
+	}
+
+	passwordIsValid := utils.CheckPasswordHash(u.Password, retrievedPassword)
+
+	if !passwordIsValid {
+		return errors.New("credentials invalid")
 	}
 
 	return nil
