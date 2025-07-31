@@ -37,6 +37,14 @@ func getEvent(context *gin.Context) {
 
 // * NOTE: Define a handler for the "/events" route (POST) -----------------------------
 func createEvent(context *gin.Context) {
+	token := context.Request.Header.Get("Authorization")
+	if token == "" {
+		context.JSON(http.StatusUnauthorized, gin.H{
+			"message": "Unauthorized: No token provided.",
+		})
+		return
+	}
+
 	var event models.Event // * NOTE: Create a new event instance
 
 	// * NOTE: Bind the JSON request body to the event instance
