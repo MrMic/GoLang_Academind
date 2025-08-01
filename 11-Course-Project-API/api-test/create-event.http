@@ -5,6 +5,7 @@
 ##
 POST http://localhost:8082/events
 content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJleHAiOjE3NTQxMzI1OTUsInVzZXJJZCI6MH0.1GTQ9Z8USbhYf4p87pAaKEYZUJYyg8ehGGz6pQQzWM4
 
 {
     "name": "Test Event",
