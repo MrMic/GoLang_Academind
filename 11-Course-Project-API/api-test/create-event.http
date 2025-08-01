@@ -17,9 +17,10 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBs
 ##
 POST http://localhost:8082/events
 content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzU0MTM5MzU0LCJ1c2VySWQiOjJ9.TX7FHkL5Hjah0ax7LdRNcUta1f3IsnzFrTni8BBG05s
 
 {
-    "name": "Test Event 2",
+    "name": "Test Event 3",
     "description": "Another test Evevnt",
     "location": "Test Location",
     "dateTime": "2025-01-01T15:30:00.000Z"
