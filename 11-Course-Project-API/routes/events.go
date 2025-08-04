@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"michaelchlon.fr/api/models"
-	"michaelchlon.fr/api/utils"
 )
 
 // * NOTE: Define a handler for the "/events" route (GET) -----------------------------
@@ -38,22 +37,6 @@ func getEvent(context *gin.Context) {
 
 // * NOTE: Define a handler for the "/events" route (POST) -----------------------------
 func createEvent(context *gin.Context) {
-	token := context.Request.Header.Get("Authorization")
-	if token == "" {
-		context.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized: No token provided.",
-		})
-		return
-	}
-
-	userId, err := utils.VerifyToken(token)
-	if err != nil {
-		context.JSON(http.StatusUnauthorized, gin.H{
-			"message": "Unauthorized: Invalid token.",
-		})
-		return
-	}
-
 	var event models.Event // * NOTE: Create a new event instance
 
 	// * NOTE: Bind the JSON request body to the event instance
@@ -62,9 +45,10 @@ func createEvent(context *gin.Context) {
 		return
 	}
 
-	event.UserID = userId // * NOTE: Set a default UserID for the event (in a real application, this would be set based on the authenticated user)
+	userId := context.GetInt64("userId") // * NOTE: Get the user ID from the context (set by the authentication middleware)
+	event.UserID = userId                // * NOTE: Set a default UserID for the event (in a real application, this would be set based on the authenticated user)
 
-	err = event.Save() // * NOTE: Save the event using the Save method defined in the model
+	err := event.Save() // * NOTE: Save the event using the Save method defined in the model
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not create event!"})
 		return
