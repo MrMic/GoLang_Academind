@@ -1,7 +1,8 @@
 ## UPDATE EN EVENT
 ##
-PUT http://localhost:8082/events/1
+PUT http://localhost:8082/events/4
 content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzU0NDc0NzAxLCJ1c2VySWQiOjJ9.59xfZS624saBq8wtW4raLDCp41SPfA1tsyBM2Jt9Ytg
 
 {
     "name": "Updated test event",
