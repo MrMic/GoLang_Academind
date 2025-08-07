@@ -5,11 +5,10 @@
 ##
 POST http://localhost:8082/events
 content-type: application/json
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzU0MzgzMzcwLCJ1c2VySWQiOjJ9.xTRU6xlKk0mDRPXD-VBJRR_K7w3Gw6-kkElQLCYmRsU
-
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJleHAiOjE3NTQ2NDgwMzYsInVzZXJJZCI6MX0.f5NzwRvz7vd_azlQH8wvzMDS-Q0CjoDfgazScpA99TE
 {
-    "name": "Test Event",
-    "description": "A test Evevnt",
+    "name": "Test New Event",
+    "description": "A test Event that is New",
     "location": "Test Location",
     "dateTime": "2025-01-01T15:30:00.000Z"
 }

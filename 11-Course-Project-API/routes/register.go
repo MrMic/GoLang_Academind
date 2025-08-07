@@ -22,13 +22,13 @@ func registerForEvent(context *gin.Context) {
 		return
 	}
 
-	err := event.Register(userId)
+	err = event.Register(userId)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Could not register for the event."})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "Registered for the event successfully!"})
+	context.JSON(http.StatusCreated, gin.H{"message": "Registered for the event successfully!"})
 }
 
 func cancelRegistration(context *gin.Context) {}
