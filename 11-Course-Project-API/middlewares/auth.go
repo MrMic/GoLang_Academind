@@ -25,6 +25,7 @@ func Authenticate(context *gin.Context) {
 		return
 	}
 
+	// NOTE: 📢 Store the user ID in the context for later use
 	context.Set("userId", userId)
 
 	context.Next()
